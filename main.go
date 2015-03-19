@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -11,15 +10,9 @@ import (
 	"launchpad.net/goamz/s3"
 )
 
-var bucketName string
-
-func init() {
-	flag.StringVar(&bucketName, "bucket", "", "Bucket Name")
-}
-
 func main() {
 
-	flag.Parse()
+	bucketName := os.Getenv("S3_BUCKET")
 
 	stats, err := os.Stdin.Stat()
 	checkErr(err)
@@ -41,8 +34,7 @@ func main() {
 
 		err = bucket.Put(fileName, buf, "text/plain", s3.BucketOwnerFull)
 		checkErr(err)
-		fmt.Printf("Created %s", fileName)
-
+		fmt.Printf("Successfully received email and saved in S3 as \n", fileName)
 	} else {
 		fmt.Println("Nothing on STDIN")
 	}

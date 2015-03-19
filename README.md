@@ -16,13 +16,14 @@ Require environment variables:
 ```
 AWS_ACCESS_KEY_ID=xxx
 AWS_SECRET_ACCESS_KEY=xxx
+S3_BUCKET=xxx
 ```
 
 either exported or injected somehow, or on the command line.
 
 Example usage:
 
-`cat samples/1161 | AWS_ACCESS_KEY_ID=<your access key id> AWS_SECRET_ACCESS_KEY=<your secret key> go run main.go -bucket=<your bucket name>`
+`cat samples/1161 | AWS_ACCESS_KEY_ID=<your access key id> AWS_SECRET_ACCESS_KEY=<your secret key> S3_BUCKET=<your bucket name> go run main.go`
 
 
-This is designed to work with an Alaveteli installation to separate mail parsing out from the main Rails app installation.
+This is designed with the intention of working with an Alaveteli installation to separate mail parsing out from the main Rails app installation.
