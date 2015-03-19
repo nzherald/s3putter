@@ -50,12 +50,14 @@ func main() {
 
 func checkErr(err error) {
 	if err != nil {
-		panic(err.Error())
+		fmt.Println(err.Error())
+		// exit with code 75 for Postfix to know to bounce mail
+		os.Exit(75)
 	}
 }
 
 func formatTime(t time.Time) string {
-	return fmt.Sprintf("%d%02d%02d-%02d-%02d-%02d-%03d",
+	return fmt.Sprintf("%d-%02d-%02d--%02d-%02d-%02d-%03d",
 		t.Year(),
 		t.Month(),
 		t.Day(),
