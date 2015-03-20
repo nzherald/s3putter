@@ -14,30 +14,23 @@ func main() {
 
 	bucketName := os.Getenv("S3_BUCKET")
 
-	stats, err := os.Stdin.Stat()
-	checkErr(err)
-
 	var buf []byte
-	buf, err = ioutil.ReadAll(os.Stdin)
+	buf, err := ioutil.ReadAll(os.Stdin)
 	checkErr(err)
 
 	auth, err := aws.EnvAuth()
 	checkErr(err)
 
-	if stats.Size() > 0 {
-		// Open Bucket
-		s := s3.New(auth, aws.APSoutheast2)
-		bucket := s.Bucket(bucketName)
+	// Open Bucket
+	s := s3.New(auth, aws.APSoutheast2)
+	bucket := s.Bucket(bucketName)
 
-		t := time.Now()
-		fileName := formatTime(t)
+	t := time.Now()
+	fileName := formatTime(t)
 
-		err = bucket.Put(fileName, buf, "text/plain", s3.BucketOwnerFull)
-		checkErr(err)
-		fmt.Printf("Successfully received email and saved in S3 as %s\n", fileName)
-	} else {
-		fmt.Println("Nothing on STDIN")
-	}
+	err = bucket.Put(fileName, buf, "text/plain", s3.BucketOwnerFull)
+	checkErr(err)
+	fmt.Printf("Successfully received email and saved in S3 as %s\n", fileName)
 }
 
 func checkErr(err error) {
