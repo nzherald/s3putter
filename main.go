@@ -34,7 +34,7 @@ func main() {
 
 		err = bucket.Put(fileName, buf, "text/plain", s3.BucketOwnerFull)
 		checkErr(err)
-		fmt.Printf("Successfully received email and saved in S3 as \n", fileName)
+		fmt.Printf("Successfully received email and saved in S3 as %s\n", fileName)
 	} else {
 		fmt.Println("Nothing on STDIN")
 	}
